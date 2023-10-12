@@ -14,7 +14,8 @@ Taking the training of lxmert on VQA-CP as an example. If you want to switch mod
 ```
 bash bash_files/run_mask_train_stage2.sh 0.3 0.3 0.3 0.7 49
 ```
-0.3, 0.3 and 0.3 represent the compression ratio of language, vision and fusion models, respectively. 0.7 represents the zero rate (1 - compression ratio) of the whole model. 49 represents the random seeds.
+At this stage, you can set the modality-specific sparsity, i.e., set different modality modules with different sparsity. For example, 0.3, 0.3 and 0.3 represent the compression ratio of language, vision and fusion models, respectively. 0.7 represents the zero rate (1 - compression ratio) of the whole model. 49 represents the random seeds.
+
 
 Note that "FTmodel_type" and "Masker_type" in script "run_mask_train_stage2.sh" represnet the loaded model type (trained in stage1) and the training methods of mask train (stage2). By setting these two hyperparameters, models in the paper such as lmh-lpf, bce-lmh, and lmh-lmh can be obtained. There is a prerequisite here that the corresponding model must be trained in stage1. For example, to obtain lmh-lpf, it is necessary to train and obtain model lxmert(lmh) in stage1 firstly, and then use this settings (FTmodel_type="lmh", Masker_type="lpf") to run the stage2 and obtain the final model "lmh-lpf".
 
