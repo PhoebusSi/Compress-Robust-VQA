@@ -21,7 +21,10 @@ Note that "FTmodel_type" and "Masker_type" in script "run_mask_train_stage2.sh" 
 
 ## For VisualBERT on VQA-CP v2
 ```
+bash bash_files/run_mask_train_stage2_visualBert.sh 0.7 5e-5 49
 ```
+Because visualBERT does not divide into modules according to modality, it adopts uniform sparsity (represented by zero rate, e.g., 0.7). 5e-5 represents the learning rate. 49 represents the random seeds.
+
 ## For LXMERT on VQA-VS
 ```
 ```
