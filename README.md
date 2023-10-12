@@ -39,5 +39,16 @@ bash bash_files/run_vqa_stage3.sh
 In Stage3, you need to load the model checkpoint saved in Stage1, masker checkpoint and classifierr checkpoint saved in Stage2 firstly, and then obtain the pruned model which is used to further finetune. You can set the training methods of Stahe3 by "FT_type" in script "run_vqa_stage3.sh". 
 
 
+# Reference
+If you found this code is useful, please cite the following paper:
+```
+@article{si2022compressing,
+  title={Compressing And Debiasing Vision-Language Pre-Trained Models for Visual Question Answering},
+  author={Si, Qingyi and Liu, Yuanxin and Lin, Zheng and Fu, Peng and Wang, Weiping},
+  journal={arXiv preprint arXiv:2210.14558},
+  year={2022}
+}
+```
+
 
 
