@@ -34,6 +34,10 @@ bash bash_files/run_mask_train_stage2_VQAvs.sh 0.3 0.3 0.3 0.7 49
 
 # stage3 (further fine-tuning the pruned models w/ or w/o debiasing methods)
 ```
+bash bash_files/run_vqa_stage3.sh
 ```
+In Stage3, you need to load the model checkpoint saved in Stage1, masker checkpoint and classifierr checkpoint saved in Stage2 firstly, and then obtain the pruned model which is used to further finetune. You can set the training methods of Stahe3 by "FT_type" in script "run_vqa_stage3.sh". 
+
+
 
 
