@@ -19,9 +19,7 @@ Taking the training of lxmert on VQA-CP as an example. If you want to switch mod
 ## For LXMERT on VQA-VS
 ```
 ```
-## For VisualBERT on VQA-VS
-```
-```
+
 
 
 # stage3 (further fine-tuning the pruned models w/ or w/o debiasing methods)
