@@ -4,6 +4,8 @@ Here is the implementation of our EMNLP-2023 [Compressing And Debiasing Vision-L
 
 # Stage1 (training full models w/ or w/o debiasing methods) 
 ```
+# Taking the training of lxmert on VQA-CP as an example. If you want to switch models or datasets, please adjust the script "run_vqa_stage1.py" yourself.
+bash bash_files/run_vqa_stage1.sh
 ```
 
 # Stage2 (pruning models w/ or w/o debiasing methods)
