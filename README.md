@@ -27,6 +27,7 @@ Because visualBERT does not divide into modules according to modality, it adopts
 
 ## For LXMERT on VQA-VS
 ```
+bash bash_files/run_mask_train_stage2_VQAvs.sh 0.3 0.3 0.3 0.7 49
 ```
 
 
