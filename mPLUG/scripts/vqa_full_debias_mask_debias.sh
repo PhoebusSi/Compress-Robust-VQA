@@ -5,7 +5,7 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 python -m torch.distributed.launch --nproc_per_node
     --use_env vqa_mplug.py \
     --config ./configs/full_model_debias.yaml \
     --checkpoint output/vqa_mplug_base/full_model_debias/13688.pt/mp_rank_00_model_states.pt \
-    --output_dir output/vqa_mplug_base/full_model_debias_mask_debias/0.3 \
+    --output_dir output/vqa_mplug_base/full_model_debias_mask_debias \
     --do_two_optim \
     --add_object \
     --do_mask \

@@ -97,7 +97,6 @@ def init_masker(conf, model):
 
     # assuming mask all stuff in one transformer block, absorb bert.pooler directly
     weight_types = {
-        # 'visual_encoder': ['AO_visual', 'I_visual', 'O_visual', 'AO', 'I', 'O'],
         'visual_encoder': ['I_visual', 'O_visual'],
         'text_encoder': ['K', 'Q', 'V', 'AO', 'I', 'O'],
         'fusion_encoder': ['SK', 'SQ', 'SV', 'SAO', 'CK', 'CQ', 'CV', 'CAO', 'I', 'O'],
@@ -326,7 +325,7 @@ def main(args, config, mask_config):
     try:
         tokenizer = BertTokenizer.from_pretrained(args.text_encoder)
     except requests.exceptions.ProxyError:
-        tokenizer = BertTokenizer.from_pretrained("/home/liuyuanxin/mPLUG/ckpts/bert-base-uncased")
+        tokenizer = BertTokenizer.from_pretrained("ckpts/bert-base-uncased")
 
 
     #### Model ####
@@ -378,28 +377,10 @@ def main(args, config, mask_config):
         if args.do_mask and 'mask' in args.checkpoint:  # if the mask is loaded, reset threshold
             reset_threshold(model, mask_config.zero_rate)
 
-    # Check the parameter count of each module
-    # for module in ['visual_encoder', 'text_encoder', 'fusion_encoder', 'text_decoder']:
-    #     count = 0
-    #     for n, p in getattr(model, module).named_parameters():
-    #         if module=='visual_encoder' and (n.startswith('transformer') or 'token_embedding' in n):   # these modules are not used in mPLUG-VQA
-    #             continue
-    #         if module=='fusion_encoder' and any([prefix in n for prefix in [f'encoder.layer.{i}' for i in range(6)]+['embedding']]): # these modules are not used in mPLUG-VQA
-    #             continue
-    #         count += p.nelement()
-    #     count /= 10**6
-    #     print(f"{module}\t{count}M")
-
     if args.do_mask and not 'mask' in args.checkpoint:
         masker = init_masker(mask_config, model)
     else:
         masker = None
-    # print(model.visual_encoder.visual)
-    # print(aa)
-    # for n,p in model.visual_encoder.visual.transformer.resblocks[9].attn.named_parameters():
-    #     if not 'weight_mask' in n:
-    #         print(n, p.requires_grad)
-    # print(aa)
     see_sparsity(model)
 
     if not args.do_two_optim:

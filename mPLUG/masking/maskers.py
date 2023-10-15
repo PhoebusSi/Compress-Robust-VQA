@@ -14,14 +14,10 @@ import os
 """get the names for ptl layers."""
 
 _visual_encoder_names = {
-    # "AI_visual": lambda ptl, l: f"{ptl}.visual.transformer.resblocks.{l}.attn.in_proj",
     "AO_visual": lambda ptl, l: f"{ptl}.visual.transformer.resblocks.{l}.attn.out_proj",
-    # "A_visual": lambda ptl, l: f"{ptl}.visual.transformer.resblocks.{l}.attn",
     "I_visual": lambda ptl, l: f"{ptl}.visual.transformer.resblocks.{l}.mlp.c_fc",
     "O_visual": lambda ptl, l: f"{ptl}.visual.transformer.resblocks.{l}.mlp.c_proj",
-    # "AI": lambda ptl, l: f"{ptl}.transformer.resblocks.{l}.attn.in_proj",
     "AO": lambda ptl, l: f"{ptl}.transformer.resblocks.{l}.attn.out_proj",
-    # "A": lambda ptl, l: f"{ptl}.transformer.resblocks.{l}.attn",
     "I": lambda ptl, l: f"{ptl}.transformer.resblocks.{l}.mlp.c_fc",
     "O": lambda ptl, l: f"{ptl}.transformer.resblocks.{l}.mlp.c_proj",
     "E": lambda ptl, l: f"{ptl}.token_embedding",
@@ -641,15 +637,6 @@ class Masker(object):
                 if name in names_tobe_masked:
                     bias = target_attr.bias if hasattr(target_attr, 'bias') else None
                     padding_idx = target_attr.padding_idx if hasattr(target_attr, 'padding_idx') else None
-                    # Modality-specific sparsity
-                    # if 'visual_encoder' in name:
-                    #     init_sparsity = self.masker_scheduler.init_sparsity + 0.15
-                    # elif 'text_encoder' in name:
-                    #     init_sparsity = self.masker_scheduler.init_sparsity - 0.05
-                    # elif 'fusion_encoder' in name:
-                    #     init_sparsity = self.masker_scheduler.init_sparsity - 0.05
-                    # elif 'text_decoder' in name:
-                    #     init_sparsity = self.masker_scheduler.init_sparsity - 0.05
                     # turn off the trainable weights and biases.
                     masked_linear = masked_linear_cls(
                         name=name,
@@ -735,7 +722,6 @@ def see_sparsity(model):
             mask = module.get_masks()[0].cpu()
             num_zero += (mask==0).sum()
     for name, param in model.named_parameters():
-        # if (name.endswith('.weight') or name.endswith('in_proj_weight')) and not 'embedding' in name:
         if not name.endswith('.weight_mask') and not 'embedding' in name and not any([prefix in name for prefix in exclude_prefix]):
             num_total += param.nelement()
     print('='*100)
