@@ -1,0 +1,30 @@
+train_file: ['data/vqacp_ocr_object/train_bias.json']
+val_file: ['data/vqacp_ocr_object/val.json']
+test_file: ['data/vqacp_ocr_object/test.json']
+val_label_file: ['data/vqacp_ocr_object/val_labels.json']
+test_label_file: ['data/vqacp_ocr_object/test_labels.json']
+answer_list: 'data/answer_list.json'
+
+read_local_data: True
+vqa_root: 'img_root/coco_2014/'
+vg_root: 'img_root/visual_genome/'
+gqa_root: 'img_root'
+
+bert_config: 'configs/config_bert_stride3.json'
+
+image_res: 384
+batch_size_train: 48
+vision_width: 768
+distill: False
+clip_name: "ViT-B-16"
+batch_size_test: 64
+k_test: 128
+
+alpha: 0.4
+warm_up: True
+
+eos: '[SEP]'
+
+optimizer: {opt: adamW, lr1: 3e-5, lr2: 5e-6, weight_decay: 0.02}
+schedular: {sched: cosine, lr: 3e-5, epochs: 8, min_lr: 1e-6, decay_rate: 1, warmup_lr: 1e-5, warmup_epochs: 4, cooldown_epochs: 0}
+use_checkpoint: True
